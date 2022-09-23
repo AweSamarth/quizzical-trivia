@@ -8,8 +8,8 @@ export default function Landing(props) {
       <div id="front-els">
         <h1 id="main-heading">Quizzical</h1>
         <h2 id="sub-heading">Can you answer them all?</h2>
-        <button onClick={props.setter}>
-          Click this button to see the magic happen
+        <button className = "start" onClick={props.setter}>
+          Start
         </button>
       </div>
     </div>

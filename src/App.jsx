@@ -62,7 +62,7 @@ export default function App() {
 
       
       console.log(count)
-      document.getElementById("counter").textContent="You scored"+count+"/5"
+      document.getElementById("counter").textContent="You scored: "+count+"/5"
       
     }
   const thequestions = questions.map((q) => {
