@@ -118,7 +118,7 @@ export default function App() {
           </div>
           <div className="anydiv">
           <button id ="deezbutton"onClick={questionChecker}>
-            Check crow 
+            Check 
           </button>
           <div id="counter"></div>
           </div>
