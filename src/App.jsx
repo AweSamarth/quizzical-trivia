@@ -4,10 +4,12 @@ import React from "react";
 import Landing from "./Landing";
 
 export default function App() {
+  var count=0
+  
+  console.log("State changed")
   const [questions, setQuestions] = React.useState([]);
   const [started, setStarted] = React.useState(false);
   const [choices, setChoices] = React.useState([]);
-  const [correctCount, setCorrectCount]=React.useState(0)
 
   let qarray = [];
   function decodeHtml(html) {
@@ -15,9 +17,8 @@ export default function App() {
     txt.innerHTML = html;
     return txt.value;
   }
-
+  let correctarray=[];
   React.useEffect(() => {
-    
     fetch("https://opentdb.com/api.php?amount=5&type=multiple")
       .then((response) => response.json())
       .then((data) => {
@@ -34,41 +35,59 @@ export default function App() {
     setStarted(!started);
   }
 
-  // const qlist=questions.map(q=>(<Question category={q.category} />))
-  const thequestions = questions.map((q) => {
-    // all_answers.splice(Math.floor(Math.random()*4),0,q.correct_answer)
-    // console.log(all_answers)
-    const temparr = q.incorrect_answers
-    const incorrect_answers= temparr.map(e=>decodeHtml(e))
-    // console.log(q.incorrect_answers)
-    // function checker(e) {
-    //   if (choices.includes(e.target.value)){
-    //    const temparr = choices.filter((x)=>x!=e.target.value) 
-    //    console.log(temparr)
-    //   }
-    //   else{
-    //     setChoices(prev=>[...prev, e.target.value])
-    //     console.log(choices)
-    //   }
-    // }
-    function checker(e){
-      // console.log((e.target.textContent))
-      // console.log(q.correct_answer)
-      console.log(e.target)
-      if (e.target.textContent==q.correct_answer.toString()){
-        console.log("yay")
+    function questionChecker(){
+      for(let i=0;i<choices.length; i++){
+        console.log(choices[i].value)
+        let element = document.getElementsByClassName(choices[i].value)[0]
+        if (choices[i].isCorrect){
+          element.className+=" correct"
+          console.log(choices[i])
+          console.log("this works")
+          count++
+          
+          
+        }
+        else(
+          element.className+=" incorrect"
+        )
+
+        
         
       }
-      // console.log(e.target.textContent)
-      // console.log(q.correct_answer)
+      for (let i=0;i<correctarray.length;i++){
+        let element = document.getElementsByClassName(correctarray[i])[0]
+        element.className+=" correct"
+  
+      }
 
-        // e.target.style.background ="red"
+      
+      console.log(count)
+      document.getElementById("counter").textContent="You scored"+count+"/5"
       
     }
+  const thequestions = questions.map((q) => {
+    const temparr = q.incorrect_answers
+    const incorrect_answers= temparr.map(e=>decodeHtml(e))
+    correctarray.push(q.correct_answer)
+    console.log(correctarray)
+    function checker(e){
 
-    function therealchecker(){
-      
+      let temporarr = choices
+      temporarr.push(e)
+      for (let i of temporarr){
+        if (i.que ==e.que && i!=e){
+          temporarr.splice(temporarr.indexOf(i), 1)
+          
+        }
+        setChoices[temporarr]
+      }
+      if (e.isCorrect){
+        console.log("tru hai bosh")
+      }
+
+
     }
+
     return (
       <Question
         category={q.category}
@@ -77,18 +96,13 @@ export default function App() {
         incorrect_answers={incorrect_answers}
         checker={checker}
         key={q.question}
+        setChoices={setChoices}
       />
     );
   });
-  function therealchecker(){
 
-  }
 
-  function counter(){
-    return(
-      <div>count</div>
-    )
-  }
+
   return (
     <div id="mainer">
       {!started ? (
@@ -102,9 +116,12 @@ export default function App() {
 
           {thequestions}
           </div>
-          <button onClick={counter}>
-            Click this button to see the magic happen
+          <div className="anydiv">
+          <button id ="deezbutton"onClick={questionChecker}>
+            Check crow 
           </button>
+          <div id="counter"></div>
+          </div>
         </div>
       )}
     </div>

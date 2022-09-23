@@ -30,7 +30,7 @@ body{
   border:1px solid blue;
 }
 #main-container{
-  border:1px solid white;
+  /* border:1px solid white; */
   display:flex;
   align-items: center;
   justify-content: center;
@@ -130,7 +130,7 @@ input:checked + label {
 
   height:100%;  
   margin-top:0.7em;
-  border:1px solid white;
+  /* border:1px solid white; */
   display: flex;
   /* padding:20px; */
   align-items: center;
@@ -158,11 +158,11 @@ label:hover{
   position: relative
 }
 .thequestions{
-  border:1px solid green;
+  /* border:1px solid green; */
 }
 
 .toplevel{
-  border:1px solid green;
+  /* border:1px solid green; */
   height:100%;
   background:#262729;
   padding: 1em;
@@ -203,8 +203,38 @@ label:hover{
 
 .that-was-correct{
 
+    background:green;
+
 }
 
 .main-question{
 
+}
+
+
+.correct{
+  color:#293264 !important;
+  background:#94D7A2!important; 
+  border:NONE;
+}
+.incorrect{
+  background:#a53b3b !important;
+  color:#1c1e27 !important;
+}
+
+
+
+.anydiv{
+  margin-top:1em;
+  display:flex;
+  /* border:1px solid white; */
+  align-items: center ;
+  justify-content: space-around;
+
+}
+
+#deezbutton{
+  padding:0.5em;  
+  font-family: Karla, sans-serif;
+  font-size: 1em;;
 }
